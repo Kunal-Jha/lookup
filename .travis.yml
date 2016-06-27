@@ -13,6 +13,9 @@ before_install:
   - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
   - cat /etc/hosts # optionally check the content *after*
 
+env:
+  global:
+  - ENCRYPTION_LABEL: 50bceeb2a627
 script: bash ./deploy.sh
 
 branches:
