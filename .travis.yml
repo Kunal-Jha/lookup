@@ -14,9 +14,7 @@ before_install:
   - cat /etc/hosts # optionally check the content *after*
 
 script: bash ./deploy.sh
-env:
-  global:
-  - ENCRYPTION_LABEL: 44c3b82ac044784d0b22e62ceb01caaa1bfb6835
+
 branches:
   only:
     - master
