@@ -73,6 +73,9 @@ Archive: 2015-04, 3.9 and 3.8
     
 
 The server should now be running at http://localhost:1111
+## Updating the Static Html Pages
+
+Edit the swagger.yaml file to update the documentation for the project.  Upon builiding the whole project using "maven clean install" the static html is automatically generated under target/generatedSwaggerDocument folder.
 
 ## Rebuilding the index
 
