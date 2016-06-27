@@ -1,31 +1,32 @@
 language: java
 jdk:
-  - oraclejdk8
-  - oraclejdk7
-  - openjdk7
-
-  
-# Workaround for https://github.com/travis-ci/travis-ci/issues/5227
-# Buffer overflow in Java_java_net_Inet4AddressImpl_getLocalHostName
+- oraclejdk8
+- oraclejdk7
+- openjdk7
 before_install:
-  - cat /etc/hosts # optionally check the content *before*
-  - sudo hostname "$(hostname | cut -c1-63)"
-  - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
-  - cat /etc/hosts # optionally check the content *after*
-
+- cat /etc/hosts
+- sudo hostname "$(hostname | cut -c1-63)"
+- sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo
+  tee /etc/hosts
+- cat /etc/hosts
 env:
   global:
-  - ENCRYPTION_LABEL: 50bceeb2a627
-
-script: bash ./deploy.sh
-
+  - secure: OaOLylJsC1IRRzSGQ9iRRcQ7cLT/PoCuoNFbPrkop2V7iOydujwAAVr8XoE0x7Q1Vzg3EIORQC2S42c/rBYAOAhxwkm0KQKJ5IhkM1KnYeqEWPFbtWT7CeIdoK4GW5mk2iDaey6nuCA3SeYL7BIrLw5Ca83CyLuUHt6dIhSVDssSS7qvltHhvvsd0yizIAPIJ4qEYWpinQRYhGpP7t/e9hbuPv8RNAtnxT1qfgTpVkV7DBJjqt6RN7wwnbBtrP7fgZpeUKYQyyKUUCLiOLb1UpJjllQkxkOUpI0w5lc5ZAYLLgR+xgFkfjsNlM4JADePjVyWKvk12Nt1wpQmVQjaPdHQgRd08SYTBhVljEZgFyXAS9uCbMbfR8M+bCldupZFtIzMEs3IRjtVyR1U/l67/RcUg9P7rFEihx1q3VnH44d2je8j4YLx4erx/eSPXaIoWUEih/S6lYbG2qJU/apy4AR9cGLy/A0c2befB/eTOpc5RAnKF7N00D4a1z6ew80CRPyAYLEzn0CoBZjP3tRGUGf7XiN0VFV9ab0zD/SP3MIoiUYQwL9++H3P94DrAwczcGrNKyV8G3pyyE1hiPC8NfwBUlebhOSGVqAWYzaIbmdxI7bgqxHW6x/K/vJJMYbTzs3IrOySi/KBvxoZOSNFxklil8BlgyNt08jN2usSjmM=
+script: mvn clean install
+deploy:
+  provider: releases
+  api_key: OaOLylJsC1IRRzSGQ9iRRcQ7cLT/PoCuoNFbPrkop2V7iOydujwAAVr8XoE0x7Q1Vzg3EIORQC2S42c/rBYAOAhxwkm0KQKJ5IhkM1KnYeqEWPFbtWT7CeIdoK4GW5mk2iDaey6nuCA3SeYL7BIrLw5Ca83CyLuUHt6dIhSVDssSS7qvltHhvvsd0yizIAPIJ4qEYWpinQRYhGpP7t/e9hbuPv8RNAtnxT1qfgTpVkV7DBJjqt6RN7wwnbBtrP7fgZpeUKYQyyKUUCLiOLb1UpJjllQkxkOUpI0w5lc5ZAYLLgR+xgFkfjsNlM4JADePjVyWKvk12Nt1wpQmVQjaPdHQgRd08SYTBhVljEZgFyXAS9uCbMbfR8M+bCldupZFtIzMEs3IRjtVyR1U/l67/RcUg9P7rFEihx1q3VnH44d2je8j4YLx4erx/eSPXaIoWUEih/S6lYbG2qJU/apy4AR9cGLy/A0c2befB/eTOpc5RAnKF7N00D4a1z6ew80CRPyAYLEzn0CoBZjP3tRGUGf7XiN0VFV9ab0zD/SP3MIoiUYQwL9++H3P94DrAwczcGrNKyV8G3pyyE1hiPC8NfwBUlebhOSGVqAWYzaIbmdxI7bgqxHW6x/K/vJJMYbTzs3IrOySi/KBvxoZOSNFxklil8BlgyNt08jN2usSjmM=
+  file: target/generateswaggerdoc/index.html
+  skip_cleanup: true
+  on:
+    overwrite: true
 branches:
   only:
-    - V2_improvements
-install: /bin/true
+  - V2_improvements
+install: "/bin/true"
 notifications:
   email:
     recipients:
-      - kunal94jha@gmail.com
-    on_success: change 
+    - kunal94jha@gmail.com
+    on_success: change
     on_failure: change
