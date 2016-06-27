@@ -16,17 +16,16 @@ before_install:
 env:
   global:
   - ENCRYPTION_LABEL: 50bceeb2a627
+
 script: bash ./deploy.sh
 
 branches:
   only:
-    - master
     - V2_improvements
 install: /bin/true
-script: "mvn clean install"
 notifications:
   email:
     recipients:
-      - dbpedia-developers@lists.sourceforge.net
+      - kunal94jha@gmail.com
     on_success: change 
     on_failure: change
